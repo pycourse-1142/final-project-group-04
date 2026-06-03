@@ -22,8 +22,9 @@ def load_and_clean_data(file_path="data/metro_data.csv"):
     def remove_station_code(station_name):
         if pd.isna(station_name):
             return ""
-        # 匹配開頭的英數字編號加上空格，並將其替換為空字串
-        return re.sub(r'^[A-Z0-9]+\s+', '', str(station_name))
+        # 精修版：精準匹配 1-2 個大寫英文字母（如 BL 或 R），後面接 2 位數字與空格
+        clean_name = re.sub(r'^[A-Z]{1,2}\d{2}\s+', '', str(station_name))
+        return clean_name.strip()  # 順手切除前後可能殘留的隱形空白
     
     print("正在進行車站名稱字串清洗(剝離代號)...")
     if 'Entrance' in df.columns:
