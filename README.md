@@ -47,12 +47,22 @@
 ---
 
 ##  四、AI 協作與糾錯紀錄 (佔比 10%)
-1.  **關鍵 Prompt**：
-    > (請在此處貼上你們最常使用的指令)
-    
-2.  **AI 代碼失效紀錄與人工修正**：
-    * **失效說明**
-    * **人工修正方法**
+### 1. 關鍵 Prompt：
+> `程式碼沒有問題 但沒有圖片生成`
+> `我發現圖片成功生成 但雲端沒有同步`
+
+### 2. AI 代碼失效紀錄與人工修正：
+
+* **失效說明**：
+    * **現象一（環境還原與遺失套件）**：執行主程式時終端機狂報 `ModuleNotFoundError: No module named 'pandas'`。經檢視發現，因學校電腦重開機自動還原，導致上週配置好的 `pandas`、`matplotlib` 等資料科學套件全數遺失。
+    * **現象二（多環境錯位與執行失效）**：手動於終端機執行 `pip install` 後，點擊 VS Code 右上角播放鍵依然報錯。經人工觀察終端機路徑，發現電腦同時存在商店版 `Python 3.12` 與系統版 `Python 3.13`。`pip` 將套件裝到了 3.12 房間，但 VS Code 播放鍵卻預設呼叫 3.13 執行檔，導致代碼因環境錯位而持續失效。
+    * **現象三（Git 忽略政策導致同步失敗）**：專案設定中的 `.gitignore` 包含 `results/` 過濾規則，導致圖片產出後無法透過標準 Git 流程推送，始終顯示 `Everything up-to-date`，不符作業評分要求。
+
+* **人工修正方法**：
+    * **方法一（精準路徑指引）**：放棄使用 VS Code 預設的不確定播放鍵，改由終端機手動輸入已完備套件之解譯器絕對路徑來強制點火執行：
+        `& "C:/Users/TCUMI/AppData/Local/Microsoft/WindowsApps/python.exe" c:/Users/TCUMI/Desktop/final-project-group-04/main.py`
+    * **方法二（Interpreter 環境校正）**：按下 `Ctrl + Shift + P` 呼叫 `Python: Select Interpreter` 功能，將 VS Code 全域核心手動切換至商店版 `Python 3.12`，一舉消除所有 `Pylance` 的遺失模組黃色警告線。
+    * **方法三（Git 強制通行證）**：利用 `git add -f results/*.png` 強制繞過規則封鎖，順利將 4 張視覺化圖表強推上 GitHub 雲端倉庫，完美達成作業規範。
 
 ---
 
