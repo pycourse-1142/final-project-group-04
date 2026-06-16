@@ -9,7 +9,7 @@ DEFAULT_TOP_N = 5
 
 def get_peak_hourly_traffic(df: pd.DataFrame, start_hour: int, end_hour: int) -> pd.DataFrame:
     """
-    任務 1 & 2：篩選特定時段，並利用 .groupby() 計算各站進出站總人潮
+    篩選特定時段，並利用 .groupby() 計算各站進出站總人潮
     """
     # 篩選時段
     peak_df = df[(df['時段'] >= start_hour) & (df['時段'] <= end_hour)]
@@ -21,7 +21,7 @@ def get_peak_hourly_traffic(df: pd.DataFrame, start_hour: int, end_hour: int) ->
 
 def get_top_load_stations(df: pd.DataFrame, top_n: int = DEFAULT_TOP_N) -> pd.DataFrame:
     """
-    任務 3A：計算人流負荷最大 (進站 + 出站) 的 Top N 車站
+    計算人流負荷最大 (進站 + 出站) 的 Top N 車站
     """
     # 這裡的 df 應該先經過 get_peak_hourly_traffic 處理，或是直接傳入全日資料
     df_load = df.copy()
@@ -34,7 +34,7 @@ def get_top_load_stations(df: pd.DataFrame, top_n: int = DEFAULT_TOP_N) -> pd.Da
 
 def get_top_imbalanced_stations(df: pd.DataFrame, top_n: int = DEFAULT_TOP_N) -> pd.DataFrame:
     """
-    任務 3B：計算進出站人流最不平衡 ( |進站 - 出站| ) 的 Top N 車站
+    計算進出站人流最不平衡 ( |進站 - 出站| ) 的 Top N 車站
     """
     df_imbalance = df.copy()
     # 絕對值計算不平衡度
